@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о автомобиле</title>
+</head>
+<body>
+    <h1>Информация о автомобиле</h1>
+
+    {% if car %}
+        <p><strong>Марка:</strong> {{ car.make }}</p>
+        <p><strong>Модель:</strong> {{ car.model }}</p>
+        <p><strong>Год выпуска:</strong> {{ car.year }}</p>
+        <p><strong>Описание:</strong> {{ car.description }}</p>
+        <p><strong>Владелец:</strong> {{ car.owner.username }}</p>
+        <p><strong>Дата публикации:</strong> {{ car.created_at }}</p>
+        <p><strong>Последнее редактирование:</strong> {{ car.updated_at }}</p>
+    {% elif error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    {% if user == car.owner %}
+        <a href="{% url 'car_update' id=car.id %}"><button>Изменить объявление</button></a>
+    {% endif %}
+
+    {% if car %}
+        <h2>Комментарии</h2>
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <p><strong>{{ comment.author.username }}</strong> ({{ comment.created_at|date:"d.m.Y H:i" }}):</p>
+                    <p>{{ comment.content }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if user.is_authenticated %}
+            <h3>Оставить комментарий</h3>
+            <form action="{% url 'car' id=car.id %}" method="POST">
+                {% csrf_token %}
+                <textarea name="content" required></textarea>
+                <button type="submit">Отправить комментарий</button>
+            </form>
+        {% else %}
+            <p>Для того чтобы оставить комментарий, необходимо авторизоваться.</p>
+        {% endif %}
+    {% endif %}
+
+    <a href="{% url 'home' %}">На главную</a>
+</body>
+</html>

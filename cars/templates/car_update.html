@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить автомобиль</title>
+</head>
+<body>
+    <h1>Обновить информацию об автомобиле</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% if form %}
+            {{ form.as_p }}
+            <button type="submit">Обновить</button>
+        {% endif %}
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    {% if form %}
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="delete" style="color: red;">Удалить</button>
+        </form>
+    {% endif %}
+
+    {% if car %}
+        <a href="{% url 'car' id=car.id %}">
+            <button>Назад</button>
+        </a>
+    {% else %}
+        <a href="{% url 'home' %}">
+            <button>Назад</button>
+        </a>
+    {% endif %}
+</body>
+</html>

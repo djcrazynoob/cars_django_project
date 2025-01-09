@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+</head>
+<body>
+    <!-- Авторизация -->
+    <div>
+        <h2>Авторизация</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" name="login">Войти</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Регистрация</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="password">Повторите пароль:</label>
+            <input type="password" id="password_confirm" name="password_confirm" required>
+            <button type="submit" name="register">Войти</button>
+        </form>
+    </div>
+
+    {% if error_message %}
+        <p style="color: red">{{ error_message }}</p>  <!-- Показываем сообщение об ошибке -->
+    {% endif %}
+</body>
+</html>
