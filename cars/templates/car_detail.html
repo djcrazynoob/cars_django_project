@@ -13,8 +13,8 @@
         <p><strong>Год выпуска:</strong> {{ car.year }}</p>
         <p><strong>Описание:</strong> {{ car.description }}</p>
         <p><strong>Владелец:</strong> {{ car.owner.username }}</p>
-        <p><strong>Дата публикации:</strong> {{ car.created_at }}</p>
-        <p><strong>Последнее редактирование:</strong> {{ car.updated_at }}</p>
+        <p><strong>Дата публикации:</strong> {{ car.created_at|date:"d.m.Y H:i" }}</p>
+        <p><strong>Последнее редактирование:</strong> {{ car.updated_at|date:"d.m.Y H:i" }}</p>
     {% elif error_message %}
         <p style="color: red;">{{ error_message }}</p>
     {% endif %}
